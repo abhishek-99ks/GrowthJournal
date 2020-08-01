@@ -1,21 +1,25 @@
 {% block header %}
 
-<nav class="black">
-    <div class="nav-wrapper container">
-        <a href="#!" class="brand-logo">GrowthJournal</a>
+<nav class="black" style="padding: 0">
+    <div class="nav container">
+        <a href="/" class="brand-logo">GrowthJournal</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li class="grey"><a href="/">Journal</a></li>
-            <li><a href="/cal">Calendar</a></li>
-            <li><a href="#">Log Out</a></li>
+
+            <!-- added username and authentication options -->
+
+            {% if request.user.is_authenticated %}
+                <li style="margin-right: 20px">{{request.user.username}}</li>
+                <li class="grey"><a href="/">Journal</a></li>
+                <li><a href="/cal">Calendar</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+            {% else %}
+                <li><a class="nav-item nav-link active" href="{% url 'register' %}">Register </a></li>
+                <li><a class="nav-item nav-link active" href="{% url 'login' %}">Login </a></li>
+            {% endif %}
         </ul>
     </div>
 </nav>
 
-<ul class="sidenav" id="mobile-demo">
-    <li class="grey"><a href="#">Journal</a></li>
-    <li><a href="#">Calendar</a></li>
-    <li><a href="#">Log Out</a></li>
-</ul>
 
 {% endblock header %}
